@@ -2,6 +2,14 @@
   text-align: center;
 }
 
+.formField h2 {
+  color: #f39200;
+}
+
 .selectForm {
   width: 50px;
+}
+
+.buttonField {
+  margin-top: 20px;
 }

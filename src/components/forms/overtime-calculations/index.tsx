@@ -1,4 +1,11 @@
-import { useMemo, VFC } from 'react';
+import {
+  useCallback,
+  useMemo,
+  useState,
+  VFC,
+} from 'react';
+
+import { useCalculationFuncs } from '../../../hooks/useCalculationFuncs';
 
 import styles from './index.module.css';
 
@@ -7,7 +14,36 @@ type Option = {
   value: string
 };
 
+type Hours = {
+  startHourAt: string
+  endHourAt: string
+  startMinuteAt: string
+  endMinuteAt: string
+};
+
+const initialHours: Hours = {
+  startHourAt: '18',
+  endHourAt: '19',
+  startMinuteAt: '45',
+  endMinuteAt: '00',
+};
+
+type OverTime = {
+  hour: number
+  minute: number
+};
+
+const initialOverTime: OverTime = {
+  hour: 0,
+  minute: 0,
+};
+
 export const OvertimeCalculationsForm: VFC = () => {
+  const [hours, setHours] = useState<Hours>(initialHours);
+  const [overTime, setOverTime] = useState<OverTime>(initialOverTime);
+  const [isCalculationFlg, setIsCalculationFlg] = useState<boolean>(false);
+  const { timeDifference } = useCalculationFuncs();
+
   const startHourAtOptions: Option[] = useMemo(() => [
     { label: '18', value: '18' },
     { label: '19', value: '19' },
@@ -29,9 +65,22 @@ export const OvertimeCalculationsForm: VFC = () => {
     { label: '45', value: '45' },
   ], []);
 
+  const onClickOvertimeCalculationButtonHandler = useCallback(() => {
+    const diffTime = timeDifference({
+      startHourAt: Number(hours.startHourAt),
+      startMinuteAt: Number(hours.startMinuteAt),
+      endHourAt: Number(hours.endHourAt),
+      endMinuteAt: Number(hours.endMinuteAt),
+    });
+
+    if (diffTime && 'error' in diffTime) return;
+
+    setOverTime({ hour: diffTime.hour, minute: diffTime.minute / 60 * 100 });
+    setIsCalculationFlg(true);
+  }, [hours, timeDifference]);
+
   return (
-    <form id='overCalculationsForm' className={styles.formField}>
-      {/* MEMO: 残業開始時間 */}
+    <div className={styles.formField}>
       <div>
         <label htmlFor="">
           開始時刻：
@@ -41,6 +90,7 @@ export const OvertimeCalculationsForm: VFC = () => {
           id="startHourAt"
           defaultValue={startHourAtOptions[0].value}
           className={styles.selectForm}
+          onChange={(e) => setHours({ ...hours, startHourAt: e.target.value })}
         >
           {startHourAtOptions.map((startHour) => (
             <option key={startHour.value} value={startHour.value}>{startHour.label}</option>
@@ -51,13 +101,13 @@ export const OvertimeCalculationsForm: VFC = () => {
           id="startMinuteAt"
           defaultValue={minuteAtOptions[3].value}
           className={styles.selectForm}
+          onChange={(e) => setHours({ ...hours, startMinuteAt: e.target.value })}
         >
           {minuteAtOptions.map((startMinute) => (
             <option key={startMinute.value} value={startMinute.value}>{startMinute.label}</option>
           ))}
         </select>
       </div>
-      {/* MEMO:残業終了時間 */}
       <div>
         <label htmlFor="">
           終了時間：
@@ -67,6 +117,7 @@ export const OvertimeCalculationsForm: VFC = () => {
           id="endHourAt"
           defaultValue={endHourAtOptions[1].value}
           className={styles.selectForm}
+          onChange={(e) => setHours({ ...hours, endHourAt: e.target.value })}
         >
           {endHourAtOptions.map((endHour) => (
             <option key={endHour.value} value={endHour.value}>{endHour.label}</option>
@@ -77,12 +128,25 @@ export const OvertimeCalculationsForm: VFC = () => {
           id="endMinuteAt"
           defaultValue={minuteAtOptions[0].value}
           className={styles.selectForm}
+          onChange={(e) => setHours({ ...hours, endMinuteAt: e.target.value })}
         >
             {minuteAtOptions.map((endMinute) => (
               <option key={endMinute.value} value={endMinute.value}>{endMinute.label}</option>
             ))}
         </select>
+        <div className={styles.buttonField}>
+          <button
+            onClick={onClickOvertimeCalculationButtonHandler}
+          >
+            残業時間計算
+          </button>
+        </div>
+        {isCalculationFlg && (
+          <h2>
+            残業時間：{overTime.hour}.{overTime.minute}h
+          </h2>
+        )}
       </div>
-    </form>
+    </div>
   );
 };
