@@ -66,6 +66,8 @@ export const OvertimeCalculationsForm: VFC = () => {
   ], []);
 
   const onClickOvertimeCalculationButtonHandler = useCallback(() => {
+    setOverTime(initialOverTime);
+    setIsCalculationFlg(false);
     const diffTime = timeDifference({
       startHourAt: Number(hours.startHourAt),
       startMinuteAt: Number(hours.startMinuteAt),
@@ -138,7 +140,7 @@ export const OvertimeCalculationsForm: VFC = () => {
           <button
             onClick={onClickOvertimeCalculationButtonHandler}
           >
-            残業時間計算
+            残業時間変換
           </button>
         </div>
         {isCalculationFlg && (

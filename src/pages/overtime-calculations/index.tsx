@@ -7,19 +7,18 @@ import styles from './index.module.css';
 
 const OvertimeCalculations: NextPage = () => {
   return (
-    /* TODO: 残業時間計算コンポーネントの実装 */
     <div className={styles.container}>
       <Head>
-        <title>残業時間計算</title>{/* TODO: 計算から変換に修正 */}
+        <title>残業時間変換</title>
       </Head>
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          残業時間計算
+          残業時間変換
         </h1>
 
         <p className={styles.description}>
-          1.30時間や1.45時間を1.50hや1.75表記に変換します！
+          1.30時間や1.45時間を1.50hや1.75hなどの10進法表記に変換します！
         </p>
         <OvertimeCalculationsForm />
       </main>
