@@ -1,4 +1,5 @@
 import type { NextPage } from 'next'
+import Link from 'next/link'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../../styles/Home.module.css'
@@ -18,28 +19,36 @@ const Home: NextPage = () => {
         </h1>
 
         <div className={styles.grid}>
-          <a href="/overtime-calculations" className={styles.card}>
-            <h2>残業時間変換 &rarr;</h2>
-            <p>
-              今日の残業時間の○分を10進法表記に変換します！<br />
-              例：1.25h、1.75h
-            </p>
-          </a>
+          <Link href="/overtime-calculations">
+            <a className={styles.card}>
+              <h2>残業時間変換 &rarr;</h2>
+              <p>
+                今日の残業時間の○分を10進法表記に変換します！<br />
+                例：1.25h、1.75h
+              </p>
+            </a>
+          </Link>
 
-          <a href="#" className={styles.card}>
-            <h2>Next Update &rarr;</h2>
-            <p>Next Update Next Update Next Update Next Update Next Update!</p>
-          </a>
+          <Link href="#">
+            <a className={styles.card}>
+              <h2>Next Update &rarr;</h2>
+              <p>Next Update Next Update Next Update Next Update Next Update!</p>
+            </a>
+          </Link>
 
-          <a href="#" className={styles.card}>
-            <h2>Next Update &rarr;</h2>
-            <p>Next Update Next Update Next Update Next Update Next Update!</p>
-          </a>
+          <Link href="#">
+            <a className={styles.card}>
+              <h2>Next Update &rarr;</h2>
+              <p>Next Update Next Update Next Update Next Update Next Update!</p>
+            </a>
+          </Link>
 
-          <a href="#" className={styles.card}>
-            <h2>Next Update &rarr;</h2>
-            <p>Next Update Next Update Next Update Next Update Next Update!</p>
-          </a>
+          <Link href="#">
+            <a className={styles.card}>
+              <h2>Next Update &rarr;</h2>
+              <p>Next Update Next Update Next Update Next Update Next Update!</p>
+            </a>
+          </Link>
         </div>
       </main>
 
