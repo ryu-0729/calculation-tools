@@ -1,4 +1,5 @@
 import {
+  ChangeEvent,
   useCallback,
   useMemo,
   useState,
@@ -16,32 +17,26 @@ type Option = {
 
 type Hours = {
   startHourAt: string
-  endHourAt: string
   startMinuteAt: string
+  endHourAt: string
   endMinuteAt: string
+  overtimeHour: number
+  overtimeMinute: number
+  isCalculationFlg: boolean
 };
 
 const initialHours: Hours = {
   startHourAt: '18',
+  startMinuteAt: '30',
   endHourAt: '19',
-  startMinuteAt: '45',
   endMinuteAt: '00',
-};
-
-type OverTime = {
-  hour: number
-  minute: number
-};
-
-const initialOverTime: OverTime = {
-  hour: 0,
-  minute: 0,
+  overtimeHour: 0,
+  overtimeMinute: 0,
+  isCalculationFlg: false,
 };
 
 export const OvertimeCalculationsForm: VFC = () => {
   const [hours, setHours] = useState<Hours>(initialHours);
-  const [overTime, setOverTime] = useState<OverTime>(initialOverTime);
-  const [isCalculationFlg, setIsCalculationFlg] = useState<boolean>(false);
   const { timeDifference } = useCalculationFuncs();
 
   const startHourAtOptions: Option[] = useMemo(() => [
@@ -65,9 +60,18 @@ export const OvertimeCalculationsForm: VFC = () => {
     { label: '45', value: '45' },
   ], []);
 
+  const onChangeHoursHandler = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setHours({ ...hours, [name]: value });
+  }, [hours]);
+
   const onClickOvertimeCalculationButtonHandler = useCallback(() => {
-    setOverTime(initialOverTime);
-    setIsCalculationFlg(false);
+    setHours({
+      ...hours,
+      overtimeHour: 0,
+      overtimeMinute: 0,
+      isCalculationFlg: false,
+    });
     const diffTime = timeDifference({
       startHourAt: Number(hours.startHourAt),
       startMinuteAt: Number(hours.startMinuteAt),
@@ -77,8 +81,12 @@ export const OvertimeCalculationsForm: VFC = () => {
 
     if (diffTime && 'error' in diffTime) return;
 
-    setOverTime({ hour: diffTime.hour, minute: diffTime.minute / 60 * 100 });
-    setIsCalculationFlg(true);
+    setHours({
+      ...hours,
+      overtimeHour: diffTime.hour,
+      overtimeMinute: diffTime.minute / 60 * 100,
+      isCalculationFlg: true,
+    });
   }, [hours, timeDifference]);
 
   return (
@@ -90,9 +98,9 @@ export const OvertimeCalculationsForm: VFC = () => {
         <select
           name="startHourAt"
           id="startHourAt"
-          defaultValue={startHourAtOptions[0].value}
+          defaultValue={hours.startHourAt}
           className={styles.selectForm}
-          onChange={(e) => setHours({ ...hours, startHourAt: e.target.value })}
+          onChange={onChangeHoursHandler}
         >
           {startHourAtOptions.map((startHour) => (
             <option key={startHour.value} value={startHour.value}>{startHour.label}</option>
@@ -101,9 +109,9 @@ export const OvertimeCalculationsForm: VFC = () => {
         <select
           name="startMinuteAt"
           id="startMinuteAt"
-          defaultValue={minuteAtOptions[3].value}
+          defaultValue={hours.startMinuteAt}
           className={styles.selectForm}
-          onChange={(e) => setHours({ ...hours, startMinuteAt: e.target.value })}
+          onChange={onChangeHoursHandler}
         >
           {minuteAtOptions.map((startMinute) => (
             <option key={startMinute.value} value={startMinute.value}>{startMinute.label}</option>
@@ -117,9 +125,9 @@ export const OvertimeCalculationsForm: VFC = () => {
         <select
           name="endHourAt"
           id="endHourAt"
-          defaultValue={endHourAtOptions[1].value}
+          defaultValue={hours.endHourAt}
           className={styles.selectForm}
-          onChange={(e) => setHours({ ...hours, endHourAt: e.target.value })}
+          onChange={onChangeHoursHandler}
         >
           {endHourAtOptions.map((endHour) => (
             <option key={endHour.value} value={endHour.value}>{endHour.label}</option>
@@ -128,9 +136,9 @@ export const OvertimeCalculationsForm: VFC = () => {
         <select
           name="endMinuteAt"
           id="endMinuteAt"
-          defaultValue={minuteAtOptions[0].value}
+          defaultValue={hours.endMinuteAt}
           className={styles.selectForm}
-          onChange={(e) => setHours({ ...hours, endMinuteAt: e.target.value })}
+          onChange={onChangeHoursHandler}
         >
             {minuteAtOptions.map((endMinute) => (
               <option key={endMinute.value} value={endMinute.value}>{endMinute.label}</option>
@@ -143,9 +151,10 @@ export const OvertimeCalculationsForm: VFC = () => {
             残業時間変換
           </button>
         </div>
-        {isCalculationFlg && (
+        {hours.isCalculationFlg && (
           <h2>
-            残業時間：{overTime.hour}.{overTime.minute}h
+            {/* TODO: ポケモンの画像の表示も行いたい */}
+            残業時間：{hours.overtimeHour}.{hours.overtimeMinute}h
           </h2>
         )}
       </div>
