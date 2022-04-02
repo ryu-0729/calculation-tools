@@ -13,3 +13,22 @@
 .buttonField {
   margin-top: 20px;
 }
+
+.buttonField button {
+  display: inline-block;
+  background: #f39304;
+  color: #fff;
+  padding: 0.4rem 1.3rem;
+  font-size: 1rem;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  margin-right: 0.5rem;
+  outline: none;
+  box-shadow: 0 1px rgba(0, 0, 0, 0.45);
+  border-radius: 5px;
+}
+
+.buttonField button:hover {
+  opacity: 0.9;
+}
