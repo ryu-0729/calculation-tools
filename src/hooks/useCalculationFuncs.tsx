@@ -11,6 +11,16 @@ export type TimeDifferenceType = {
   endMinuteAt: number
 };
 
+type BodyInfo = {
+  height: number
+  weight: number
+};
+
+type Bmi = {
+  height: number
+  weight: number
+};
+
 export const useCalculationFuncs = () => {
   const timeDifference = useCallback(
     (param: TimeDifferenceType) => {
@@ -35,5 +45,33 @@ export const useCalculationFuncs = () => {
     [],
   );
 
-  return { timeDifference };
+  const weightCalculation = useCallback(
+    (param: BodyInfo) => {
+      const {
+        height,
+        weight
+      } = param;
+
+      const meterHeight = height / 100;
+      const exponentiation = meterHeight ** 2;
+
+      const bmi = weight / exponentiation;
+      const standardWeight = exponentiation * 22;
+      const cinderellaWeight = exponentiation * 18;
+      const beautyWeight = exponentiation * 20;
+
+      return {
+        bmi: bmi.toFixed(1),
+        standardWeight: standardWeight.toFixed(1),
+        cinderellaWeight: cinderellaWeight.toFixed(1),
+        beautyWeight: beautyWeight.toFixed(1),
+      };
+    },
+    [],
+  );
+
+  return {
+    timeDifference,
+    weightCalculation,
+  };
 };

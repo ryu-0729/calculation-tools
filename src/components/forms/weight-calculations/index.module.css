@@ -1,0 +1,37 @@
+.formField {
+  text-align: center;
+}
+
+.formField label {
+  color: rgb(22, 25, 207);
+}
+
+.formField input {
+  width: 65px;
+}
+
+.formField span {
+  margin: 0 4px;
+}
+
+.formField button {
+  display: inline-block;
+  background: #f30c04;
+  color: #fff;
+  padding: 0.4rem 1.3rem;
+  font-size: 1rem;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0 1px rgba(0, 0, 0, 0.45);
+  border-radius: 5px;
+}
+
+.formField button:hover {
+  opacity: 0.9;
+}
+
+.alert {
+  color: #f30c04;
+}
