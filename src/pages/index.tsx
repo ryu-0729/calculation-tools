@@ -29,9 +29,9 @@ const Home: NextPage = () => {
             </a>
           </Link>
 
-          <Link href="#">
+          <Link href="/weight-calculations">
             <a className={styles.card}>
-              <h2>Next Update &rarr;</h2>
+              <h2>理想の体重計算 &rarr;</h2>
               <p>Next Update Next Update Next Update Next Update Next Update!</p>
             </a>
           </Link>
@@ -52,6 +52,7 @@ const Home: NextPage = () => {
         </div>
       </main>
 
+      {/* TODO: 文言修正する */}
       <footer className={styles.footer}>
         <a
           href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
