@@ -32,7 +32,9 @@ const Home: NextPage = () => {
           <Link href="/weight-calculations">
             <a className={styles.card}>
               <h2>理想の体重計算 &rarr;</h2>
-              <p>Next Update Next Update Next Update Next Update Next Update!</p>
+              <p>
+                あなたの身長と体重からBMIや標準体重、シンデレラ体重、美容体重を計算します！
+              </p>
             </a>
           </Link>
 
