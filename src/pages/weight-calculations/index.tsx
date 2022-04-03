@@ -1,12 +1,21 @@
-import { NextPage } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
 
+import { PokemonClient, Pokemon } from 'pokenode-ts';
 import { WeightCalculationsForm } from '../../components/forms/weight-calculations';
 
 import styles from './index.module.css';
 
-const WeightCalculations: NextPage = () => {
+type Props = {
+  kabigonData: Pokemon
+  inteleonData: Pokemon
+};
+
+const WeightCalculations: NextPage<Props> = ({
+  kabigonData,
+  inteleonData,
+}) => {
   return (
     <div className={styles.container}>
       <Head>
@@ -25,10 +34,26 @@ const WeightCalculations: NextPage = () => {
           </Link>
         </p>
         {/* TODO: 計算フォームの実装 */}
-        <WeightCalculationsForm />
+        <WeightCalculationsForm
+          kabigonData={kabigonData}
+          inteleonData={inteleonData}
+        />
       </main>
     </div>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const pokemonApis = new PokemonClient();
+  const kabigonData = await pokemonApis.getPokemonById(143);
+  const inteleonData = await pokemonApis.getPokemonById(818);
+
+  return {
+    props: {
+      kabigonData,
+      inteleonData,
+    },
+  };
 };
 
 export default WeightCalculations;
