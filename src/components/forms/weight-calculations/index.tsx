@@ -83,6 +83,8 @@ export const WeightCalculationsForm: VFC = () => {
           onChange={onChangeBodyInfoInputHandler}
         />
         <span>cm</span>
+      </div>
+      <div>
         <label htmlFor="weight">
           体重：
         </label>
@@ -96,12 +98,12 @@ export const WeightCalculationsForm: VFC = () => {
           onChange={onChangeBodyInfoInputHandler}
         />
         <span>kg</span>
-        <button
-          onClick={onClickWeightCalculationButtonHandler}
-        >
-          体重測定
-        </button>
       </div>
+      <button
+        onClick={onClickWeightCalculationButtonHandler}
+      >
+        体重測定
+      </button>
 
       <div>
         <h2>BMI：{bodyInfo.bmi}</h2>
@@ -111,9 +113,24 @@ export const WeightCalculationsForm: VFC = () => {
             ちなみにこのアラートはBMIが22.1以上の方のみ表示しています！
           </p>
         )}
-        <h2>標準体重：{bodyInfo.standardWeight}</h2>
-        <h2>シンデレラ体重：{bodyInfo.cinderellaWeight}</h2>
-        <h2>美容体重：{bodyInfo.beautyWeight}</h2>
+        <h2>
+          標準体重：
+          {bodyInfo.standardWeight && (
+            `${bodyInfo.standardWeight}kg`
+          )}
+        </h2>
+        <h2>
+          シンデレラ体重：
+          {bodyInfo.cinderellaWeight && (
+            `${bodyInfo.cinderellaWeight}kg`
+          )}
+        </h2>
+        <h2>
+          美容体重：
+          {bodyInfo.beautyWeight && (
+            `${bodyInfo.beautyWeight}kg`
+          )}
+        </h2>
       </div>
     </div>
   );
