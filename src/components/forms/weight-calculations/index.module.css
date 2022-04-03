@@ -31,3 +31,7 @@
 .formField button:hover {
   opacity: 0.9;
 }
+
+.alert {
+  color: #f30c04;
+}
