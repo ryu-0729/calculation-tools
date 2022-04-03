@@ -107,7 +107,8 @@ export const WeightCalculationsForm: VFC = () => {
         <h2>BMI：{bodyInfo.bmi}</h2>
         {bodyInfo.bmi && Number(bodyInfo.bmi) > 22 && (
           <p className={styles.alert}>
-            ※BMI=22が最も健康的な数値となるらしいです。。。
+            ※BMI=22が最も健康的な数値となるらしいです。。。<br />
+            ちなみにこのアラートはBMIが22.1以上の方のみ表示しています！
           </p>
         )}
         <h2>標準体重：{bodyInfo.standardWeight}</h2>
