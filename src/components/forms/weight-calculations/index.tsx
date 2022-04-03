@@ -1,13 +1,21 @@
 import {
   ChangeEvent,
   useCallback,
+  useMemo,
   useState,
   VFC,
 } from 'react';
+import Image from 'next/image';
 
+import { Pokemon } from 'pokenode-ts';
 import { useCalculationFuncs } from '../../../hooks/useCalculationFuncs';
 
 import styles from './index.module.css';
+
+type Props = {
+  kabigonData: Pokemon
+  inteleonData: Pokemon
+};
 
 type BodyInfo = {
   height: string
@@ -27,7 +35,10 @@ const initialBodyInfo: BodyInfo = {
   beautyWeight: undefined,
 };
 
-export const WeightCalculationsForm: VFC = () => {
+export const WeightCalculationsForm: VFC<Props> = ({
+  kabigonData,
+  inteleonData,
+}) => {
   const [bodyInfo, setBodyInfo] = useState<BodyInfo>(initialBodyInfo);
   const { weightCalculation } = useCalculationFuncs();
 
@@ -66,6 +77,26 @@ export const WeightCalculationsForm: VFC = () => {
       beautyWeight,
     });
   }, [bodyInfo, weightCalculation]);
+
+  const kabigonImage = useMemo(() => (
+    <Image
+      alt="kabigon"
+      src={kabigonData.sprites.front_default ?? ''}
+      width={200}
+      height={200}
+      objectFit="contain"
+    />
+  ), [kabigonData])
+
+  const inteleonImage = useMemo(() => (
+    <Image
+      alt="inteleon"
+      src={inteleonData.sprites.front_default ?? ''}
+      width={200}
+      height={200}
+      objectFit="contain"
+    />
+  ), [inteleonData]);
 
   return (
     <div className={styles.formField}>
@@ -106,6 +137,12 @@ export const WeightCalculationsForm: VFC = () => {
       </button>
 
       <div>
+        {bodyInfo.bmi && Number(bodyInfo.bmi) > 22 && (
+          kabigonImage
+        )}
+        {bodyInfo.bmi && Number(bodyInfo.bmi) < 22 && (
+          inteleonImage
+        )}
         <h2>BMI：{bodyInfo.bmi}</h2>
         {bodyInfo.bmi && Number(bodyInfo.bmi) > 22 && (
           <p className={styles.alert}>
