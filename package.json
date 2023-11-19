@@ -6,9 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "openapi:generate": "openapi-generator-cli generate -g typescript-axios -i ./config/openapi.json -o ./src/types/axios"
   },
   "dependencies": {
+    "@openapitools/openapi-generator-cli": "^2.7.0",
+    "axios": "^1.6.2",
     "next": "12.1.0",
     "pokenode-ts": "^1.13.0",
     "react": "17.0.2",
