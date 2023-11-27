@@ -1,0 +1,179 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Calculation Tools API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/timedifference/": {
+      "get": {
+        "tags": [
+          "TimeDifference"
+        ],
+        "summary": "Get Time Difference",
+        "operationId": "get_time_difference_timedifference__get",
+        "parameters": [
+          {
+            "name": "startHour",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/TimeDifferenceHour"
+            }
+          },
+          {
+            "name": "startMinute",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/TimeDifferenceMinute"
+            }
+          },
+          {
+            "name": "endHour",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/TimeDifferenceHour"
+            }
+          },
+          {
+            "name": "endMinute",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/TimeDifferenceMinute"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetTimeDifferenceResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "GetTimeDifferenceResponse": {
+        "properties": {
+          "overTime": {
+            "type": "string",
+            "title": "Overtime",
+            "description": "残業時間(10進法表記)"
+          }
+        },
+        "type": "object",
+        "required": [
+          "overTime"
+        ],
+        "title": "GetTimeDifferenceResponse"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "TimeDifferenceHour": {
+        "type": "string",
+        "enum": [
+          "0",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "10",
+          "11",
+          "12",
+          "13",
+          "14",
+          "15",
+          "16",
+          "17",
+          "18",
+          "19",
+          "20",
+          "21",
+          "22",
+          "23",
+          "24"
+        ],
+        "title": "TimeDifferenceHour"
+      },
+      "TimeDifferenceMinute": {
+        "type": "string",
+        "enum": [
+          "0",
+          "15",
+          "30",
+          "45"
+        ],
+        "title": "TimeDifferenceMinute"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  }
+}
