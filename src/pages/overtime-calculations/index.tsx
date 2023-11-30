@@ -9,16 +9,16 @@ const OvertimeCalculations: NextPage = () => {
   return (
     <div className={styles.container}>
       <Head>
-        <title>残業時間変換</title>
+        <title>時間差分計算</title>
       </Head>
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          残業時間変換
+          時間差分計算
         </h1>
 
         <p className={styles.description}>
-          1.30時間や1.45時間を1.50hや1.75hなどの10進法表記に変換します！
+          1:30や1:45を1.5hや1.75hなどの10進法表記に変換します！
         </p>
         <OvertimeCalculationsForm />
       </main>
