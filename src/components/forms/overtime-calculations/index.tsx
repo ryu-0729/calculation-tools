@@ -103,11 +103,11 @@ export const OvertimeCalculationsForm: VFC = () => {
           <button
             onClick={() => mutate()}
           >
-            残業時間変換
+            時間差分計算
           </button>
         </div>
         <h2>
-          残業時間：{data?.overTime}
+          時間差分：{data?.overTime}
         </h2>
       </div>
     </div>

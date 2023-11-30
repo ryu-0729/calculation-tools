@@ -13,9 +13,9 @@ const OvertimeCalculations: NextPage = () => {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          時間差分計算
-        </h1>
+        <div>
+          <h2>時間差分計算</h2>
+        </div>
 
         <p className={styles.description}>
           1:30や1:45を1.5hや1.75hなどの10進法表記に変換します！
