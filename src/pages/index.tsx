@@ -21,10 +21,10 @@ const Home: NextPage = () => {
         <div className={styles.grid}>
           <Link href="/overtime-calculations">
             <a className={styles.card}>
-              <h2>残業時間変換 &rarr;</h2>
+              <h2>時間差分計算 &rarr;</h2>
               <p>
-                今日の残業時間の○分を10進法表記に変換します！<br />
-                例：1.25h、1.75h
+                時間の差分を10進法表記に変換します！<br />
+                例: 1:30 → 1.5h, 1:45 → 1.75h
               </p>
             </a>
           </Link>

@@ -2,10 +2,6 @@
   text-align: center;
 }
 
-.formField h2 {
-  color: #f39200;
-}
-
 .selectForm {
   width: 50px;
 }
@@ -16,7 +12,7 @@
 
 .buttonField button {
   display: inline-block;
-  background: #f39304;
+  background: rgb(46, 125, 50);
   color: #fff;
   padding: 0.4rem 1.3rem;
   font-size: 1rem;
